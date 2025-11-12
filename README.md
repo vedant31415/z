@@ -140,6 +140,47 @@ Proof:
           y ◃ xs
 ----------------          
 
+Theorem (11.7) (11.7s) “Simple Membership”:
+   e ∈ { x ❙ P }  ≡ P[x ≔ e]
+Proof:
+    e ∈ { x ❙ P }
+  ≡⟨ “Set Abbreviation” ⟩
+    e ∈ { x ❙ P • x }
+  ≡⟨ “Set membership” ⟩
+    ∃ x ❙ P • e = x
+  ≡⟨ “Trading for ∃” ⟩
+    ∃ x • P ∧ e = x
+  ≡⟨ “Symmetry of ∧” ⟩
+    ∃ x • e = x ∧ P
+  ≡⟨ “Symmetry of =” ⟩
+    ∃ x • x = e ∧ P
+  ≡⟨ “Trading for ∃” ⟩
+    ∃ x ❙ x = e • P
+  ≡⟨ “One-point rule for ∃” ⟩
+    P[x ≔ e]
+
+ --------------
+
+Theorem “M2.3b”:   R ▷ B = R ⨾ id B
+   Proof:
+    Using “Relation extensionality”:
+      For any `a, d`:
+          a ⦗ R ▷ B ⦘ d
+        ≡⟨ “Range restriction” ⟩
+          a ⦗ R ⦘ d ∈ B
+        ≡⟨ Substitution ⟩ 
+          (a ⦗ R ⦘ b)[b ≔ d ∈ B]
+        ≡⟨ “One-point rule for ∃” ⟩ 
+          ∃ b ❙ b = d ∈ B • a ⦗ R ⦘ b
+        ≡⟨ “Trading for ∃” ⟩
+          ∃ b • b = d ∈ B ∧ a ⦗ R ⦘ b 
+        ≡⟨ “Symmetry of ∧” ⟩
+          ∃ b • a ⦗ R ⦘ b ∧ b = d ∈ B
+        ≡⟨ “Relationship via `id`” ⟩
+          ∃ b • a ⦗ R ⦘ b ∧ b ⦗ id B ⦘ d  
+        ≡⟨ “Relation composition” ⟩
+        a ⦗ R ⨾ id B ⦘ d 
+-----------
 
 
 Theorem “M2.2”:
