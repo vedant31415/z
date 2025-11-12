@@ -1,4 +1,4 @@
-Theorem “Adding₂”:
+ Theorem “Adding₂”:
       m = m₀ ∧ n = n₀
     ⇒⁅  while m ≠ 0
           do
@@ -81,19 +81,20 @@ Proof:
           od
       ⁆ 
    ⟨ “While” with subproof:
-              i = 0 ∧ i = 0
-            =⟨ “Idempotency of ∧” ⟩
-              i = 0
-            =⟨ Substitution ⟩
-              (i = 0)[n ≔ n + 1]
-            ⇒⁅ n := n + 1 ⁆ ⟨“Assignment”⟩                             
-              i = 0
+          i = 0 ∧ i = 0
+        =⟨ “Idempotency of ∧” ⟩
+          i = 0
+        = ⟨ Substitution ⟩
+          (i = 0)[n ≔ n + 1]
+        ⇒⁅ n := n + 1 ⁆ ⟨“Assignment”⟩                             
+           i = 0
     ⟩
     ¬(i = 0) ∧ (i = 0)
   =⟨ “Contradiction” ⟩
     false
   ⇒⟨ “ex falso quodlibet” ⟩
     n = 42   
+              
 ---------------------
 
 Theorem (13.14) “Snoc is not empty”:  xs ▹ x ≠ 𝜖
