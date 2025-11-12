@@ -208,6 +208,26 @@ Proof:
         =⟨ “Intersection” ⟩
           e ∈ A ∩ Dom R
  ---------
+ Theorem “Distributivity of ⨾ over ∪”: (Q ∪ R) ⨾ S = Q ⨾ S ∪ R ⨾ S
+Proof:
+  Using “Relation extensionality”:
+    Subproof for `∀ x • (∀ y • x ⦗ (Q ∪ R) ⨾ S ⦘ y ≡ x ⦗ Q ⨾ S ∪ R ⨾ S ⦘ y )`:
+      For any `x`:
+          For any `y`:
+              x ⦗ (Q ∪ R) ⨾ S ⦘ y
+            =⟨ “Relation composition”⟩
+              ∃ z • x ⦗ (Q ∪ R) ⦘ z ∧ z ⦗ S ⦘ y
+            =⟨ “Relation union”⟩
+              ∃ z • (x ⦗ Q ⦘ z ∨ x ⦗ R ⦘ z) ∧ z ⦗ S ⦘ y
+            =⟨ “Distributivity of ∧ over ∨”⟩
+              ∃ z • ((x ⦗ Q ⦘ z ∧ z ⦗ S ⦘ y ) ∨ (x ⦗ R ⦘ z ∧ z ⦗ S ⦘ y))
+            =⟨ “Distributivity of ∃ over ∨”⟩
+              (∃ z • x ⦗ Q ⦘ z ∧ z ⦗ S ⦘ y) ∨ (∃ z • x ⦗ R ⦘ z ∧ z ⦗ S ⦘ y)
+            =⟨ “Relation composition”⟩
+              (x ⦗ Q ⨾ S ⦘ y) ∨ (x ⦗ R ⨾ S ⦘ y)
+            =⟨ “Relation union”⟩
+              x ⦗ Q ⨾ S ∪ R ⨾ S ⦘ y
+----------              
 
 Theorem “M2.2”:
       m = m₀ ∧ n = n₀
