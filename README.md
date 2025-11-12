@@ -96,6 +96,35 @@ Proof:
     n = 42   
 ---------------------
 
+Theorem (13.14) “Snoc is not empty”:  xs ▹ x ≠ 𝜖
+Proof:
+  By induction on `xs : Seq A`:
+    Base case `𝜖 ▹ x ≠ 𝜖`:
+        𝜖 ▹ x ≠ 𝜖
+      =⟨ “Definition of ≠” ⟩
+        ¬ (𝜖 ▹ x = 𝜖)
+      =⟨ “Definition of ▹ for 𝜖” ⟩
+        ¬ (x ◃ 𝜖 = 𝜖)
+      =⟨ “Cons is not empty” ⟩
+        ¬ false
+      =⟨ “Negation of `false`” ⟩
+        true        
+    Induction step `∀ y : A • (y ◃ xs) ▹ x ≠ 𝜖`:
+      For any `y : A`:
+          (y ◃ xs) ▹ x ≠ 𝜖
+        =⟨ “Definition of ▹ for ◃” ⟩
+          y ◃ (xs ▹ x) ≠ 𝜖
+        =⟨ “Definition of ≠” ⟩
+          ¬ (y ◃ (xs ▹ x) = 𝜖)
+        =⟨ “Cons is not empty” ⟩
+          ¬ false
+        =⟨ “Negation of `false`” ⟩
+          true
+
+--------------
+
+
+
 
 
 
