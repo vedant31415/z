@@ -227,7 +227,136 @@ Proof:
               (x ⦗ Q ⨾ S ⦘ y) ∨ (x ⦗ R ⨾ S ⦘ y)
             =⟨ “Relation union”⟩
               x ⦗ Q ⨾ S ∪ R ⨾ S ⦘ y
-----------              
+----------   
+
+Theorem “Sub-distributivity of ⨾ over ∩”: (Q ∩ R) ⨾ S ⊆ Q ⨾ S ∩ R ⨾ S
+Proof:
+Using “Relation inclusion”:
+  Subproof for `(∀ x • (∀ y • x ⦗ (Q ∩ R) ⨾ S ⦘ y ⇒ x ⦗ Q ⨾ S ∩ R ⨾ S ⦘ y ) ) `:
+    For any `x`:
+      For any `y`:
+          x ⦗ (Q ∩ R) ⨾ S ⦘ y
+        =⟨ “Relation composition”⟩
+          ∃ z • (x ⦗ (Q ∩ R) ⦘ z ∧ z ⦗ S ⦘ y)
+        =⟨ “Relation intersection”⟩
+          ∃ z • ((x ⦗ Q ⦘ z ∧ x ⦗ R ⦘ z) ∧ z ⦗ S ⦘ y)
+        =⟨ “Idempotency of ∧”⟩
+          (∃ z • ((x ⦗ Q ⦘ z ∧ x ⦗ R ⦘ z) ∧ z ⦗ S ⦘ y)) ∧ (∃ z • ((x ⦗ Q ⦘ z ∧ x ⦗ R ⦘ z) ∧ z ⦗ S ⦘ y))
+        ⇒⟨ “Monotonicity of ∧” with “Body strengthening for ∃”⟩
+          (∃ z • ((x ⦗ Q ⦘ z) ∧ z ⦗ S ⦘ y)) ∧ (∃ z • ((x ⦗ Q ⦘ z ∧ x ⦗ R ⦘ z) ∧ z ⦗ S ⦘ y))
+        ⇒⟨ “Monotonicity of ∧” with “Body strengthening for ∃”⟩
+          (∃ z • ((x ⦗ Q ⦘ z) ∧ z ⦗ S ⦘ y)) ∧ (∃ z • ((x ⦗ R ⦘ z) ∧ z ⦗ S ⦘ y))
+        =⟨ “Relation composition”⟩
+          (x ⦗ Q ⨾ S ⦘ y) ∧ (x ⦗ R ⨾ S ⦘ y)
+        =⟨ “Relation intersection”⟩
+          x ⦗ Q ⨾ S ∩ R ⨾ S ⦘ y
+------------------
+Theorem “Monotonicity of ⨾”: Q ⊆ R ⇒ Q ⨾ S ⊆ R ⨾ S
+Proof:
+Assuming `Q ⊆ R` and using with “Relation inclusion”:
+    Using “Relation inclusion”:
+      Subproof for `(∀ x • (∀ y • x ⦗ Q ⨾ S ⦘ y ⇒ x ⦗ R ⨾ S ⦘ y ) )`:
+        For any `x`:
+          For any `y`:
+              x ⦗ Q ⨾ S ⦘ y
+            =⟨ “Relation composition”⟩
+              ∃ z • x ⦗ Q ⦘ z ∧ z ⦗ S ⦘ y
+            ⇒⟨ “Monotonicity of ∃” with “Monotonicity of ∧” with Assumption `Q ⊆ R`⟩
+              ∃ z • x ⦗ R ⦘ z ∧ z ⦗ S ⦘ y
+            =⟨ “Relation composition”⟩
+              x ⦗ R ⨾ S ⦘ y
+----------------
+Theorem “Modal rule”: (Q ⨾ R) ∩ S ⊆ Q ⨾ (R ∩ Q ˘ ⨾ S)
+Proof:
+Using “Relation inclusion”:
+  Subproof for `∀ a • (∀ c • a ⦗ (Q ⨾ R) ∩ S ⦘ c ⇒ a ⦗ Q ⨾ (R ∩ Q ˘ ⨾ S) ⦘ c )`:
+    For any `a`, `c`:
+      a ⦗ Q ⨾ (R ∩ Q ˘ ⨾ S) ⦘ c
+    =⟨“Relation composition”⟩
+      ∃ b • a ⦗ Q ⦘ b ∧ b ⦗ (R ∩ Q ˘ ⨾ S) ⦘ c
+    =⟨“Relation intersection”⟩
+      ∃ b • a ⦗ Q ⦘ b ∧ (b ⦗ R ⦘ c) ∧ b ⦗ (Q ˘ ⨾ S) ⦘ c
+    =⟨“Relation composition”⟩
+      ∃ b • a ⦗ Q ⦘ b ∧ (b ⦗ R ⦘ c) ∧ (∃ x • b ⦗ Q ˘ ⦘ x ∧ x ⦗ S ⦘ c)
+    =⟨“Relation converse”⟩
+      ∃ b • a ⦗ Q ⦘ b ∧ (b ⦗ R ⦘ c) ∧ (∃ x • x ⦗ Q ⦘ b ∧ x ⦗ S ⦘ c)
+    ⇐⟨“Monotonicity of ∃” with “Monotonicity of ∧” with “∃-Introduction”⟩
+      ∃ b • (a ⦗ Q ⦘ b ∧ b ⦗ R ⦘ c) ∧ ((x ⦗ Q ⦘ b ∧ x ⦗ S ⦘ c) [x ≔ a])
+    =⟨ Substitution ⟩
+      ∃ b • (a ⦗ Q ⦘ b ∧ b ⦗ R ⦘ c) ∧ (a ⦗ Q ⦘ b ∧ a ⦗ S ⦘ c)
+    =⟨“Distributivity of ∧ over ∃”, “Idempotency of ∧”⟩
+      (∃ b • a ⦗ Q ⦘ b ∧ b ⦗ R ⦘ c) ∧ a ⦗ S ⦘ c
+    =⟨“Relation composition”⟩
+      a ⦗ Q ⨾ R ⦘ c ∧ a ⦗ S ⦘ c
+    =⟨“Relation intersection”⟩
+      a ⦗ (Q ⨾ R) ∩ S ⦘ c
+---------
+Theorem (14.227) “Relationship via ◁” “Domain restriction”:
+x ⦗ A ◁ R ⦘ y ≡ x ∈ A ∧ x ⦗ R ⦘ y
+Proof:
+    x ⦗ A ◁ R ⦘ y
+  =⟨ “Definition of ◁” ⟩
+    x ⦗ R ∩ (A × 𝐔) ⦘ y
+  =⟨ “Relation intersection” ⟩
+    x ⦗ R ⦘ y ∧ x ⦗ A × 𝐔 ⦘ y
+  =⟨ “Relationship via ×” , “Universal set” , “Identity of ∧” ⟩
+    x ⦗ R ⦘ y ∧ x ∈ A
+--------
+Theorem (14.230) “Relationship via ⩥” “Range antirestriction”:
+x ⦗ R ⩥ B ⦘ y ≡ x ⦗ R ⦘ y ∧ ¬ (y ∈ B)
+Proof:
+    x ⦗ R ⩥ B ⦘ y
+  =⟨ “Definition of ⩥” ⟩
+    x ⦗ R ∩ (𝐔 × ~ B) ⦘ y
+  =⟨ “Relation intersection” ⟩
+    x ⦗ R ⦘ y ∧ x ⦗ (𝐔 × ~ B) ⦘ y
+  =⟨ “Relationship via ×” ⟩
+    x ⦗ R ⦘ y ∧ (x ∈ 𝐔 ∧ y ∈ ~ B)
+  =⟨ “Universal set” , “Identity of ∧” , “Complement” ⟩
+    x ⦗ R ⦘ y ∧ ¬ (y ∈ B)
+--------
+Theorem (14.231) “Domain of ◁”: Dom (A ◁ R) = A ∩ Dom R
+Proof:
+Using “Set extensionality”:
+  Subproof for `∀ e • e ∈ Dom (A ◁ R) ≡ e ∈ A ∩ Dom R`:
+    For any `e`:
+        e ∈ Dom (A ◁ R)
+      =⟨ “Membership in `Dom`” ⟩
+        (∃ y • e ⦗ A ◁ R ⦘ y)
+      =⟨ “Definition of ◁” ⟩
+        (∃ y • e ⦗ R ∩ (A × 𝐔) ⦘ y)
+      =⟨ “Relation intersection” ⟩
+        (∃ y • e ⦗ R ⦘ y ∧ e ⦗ A × 𝐔 ⦘ y)
+      =⟨ “Relationship via ×” ⟩
+        (∃ y • e ⦗ R ⦘ y ∧ (e ∈ A ∧ y ∈ 𝐔))
+      =⟨ “Universal set” , “Identity of ∧” ⟩
+        (∃ y • e ⦗ R ⦘ y ∧ e ∈ A)
+      =⟨ “Distributivity of ∧ over ∃” ⟩
+        e ∈ A ∧ (∃ y • e ⦗ R ⦘ y)
+      =⟨ “Distributivity of ∧ over ∃” ⟩
+        e ∈ A ∧ (∃ y • e ⦗ R ⦘ y)
+      =⟨ “Membership in `Dom`” ⟩
+        e ∈ Dom R ∧ e ∈ A
+      =⟨ “Symmetry of ∧” ⟩
+        e ∈ A ∧ e ∈ Dom R
+      =⟨ “Intersection” ⟩
+        e ∈ A ∩ Dom R
+----------
+Theorem (14.247) “Nested ◁”: A ◁ (B ◁ R) = (A ∩ B) ◁ R
+Proof:
+    (A ∩ B) ◁ R
+  =⟨ “Definition of ◁” ⟩
+    R ∩ ((A ∩ B) × 𝐔)
+  =⟨ “Distributivity of × over ∩” ⟩
+    R ∩ (A × 𝐔) ∩ (B × 𝐔)
+  =⟨ “Symmetry of ∩” ⟩
+    (A × 𝐔) ∩ R ∩ (B × 𝐔)
+  =⟨ “Definition of ◁” ⟩
+    (A × 𝐔) ∩ (B ◁ R)
+  =⟨ “Definition of ◁” ⟩
+    A ◁ (B ◁ R)
+-----
+
 
 Theorem “M2.2”:
       m = m₀ ∧ n = n₀
@@ -579,4 +708,3 @@ Proof:
     (i = n) ∧ (s = ∑ j : ℕ ❙ j < n • f j)
   ⇒⟨ “Weakening” (3.76b) ⟩
     s = ∑ j : ℕ ❙ j < n • f j 
-
