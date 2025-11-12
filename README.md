@@ -181,7 +181,33 @@ Theorem “M2.3b”:   R ▷ B = R ⨾ id B
         ≡⟨ “Relation composition” ⟩
         a ⦗ R ⨾ id B ⦘ d 
 -----------
-
+Theorem (14.231) “Domain of ◁”: Dom (A ◁ R) = A ∩ Dom R
+Proof:
+  Using “Set extensionality”:
+    Subproof for `∀ e • e ∈ Dom (A ◁ R) ≡ e ∈ A ∩ Dom R`:
+      For any `e`:
+          e ∈ Dom (A ◁ R)
+        =⟨ “Membership in `Dom`” ⟩
+          (∃ y • e ⦗ A ◁ R ⦘ y)
+        =⟨ “Definition of ◁” ⟩
+          (∃ y • e ⦗ R ∩ (A × 𝐔) ⦘ y)
+        =⟨ “Relation intersection” ⟩
+          (∃ y • e ⦗ R ⦘ y ∧ e ⦗ A × 𝐔 ⦘ y)
+        =⟨ “Relationship via ×” ⟩
+          (∃ y • e ⦗ R ⦘ y ∧ (e ∈ A ∧ y ∈ 𝐔))
+        =⟨ “Universal set” , “Identity of ∧” ⟩
+          (∃ y • e ⦗ R ⦘ y ∧ e ∈ A)
+        =⟨ “Distributivity of ∧ over ∃” ⟩
+          e ∈ A ∧ (∃ y • e ⦗ R ⦘ y)
+        =⟨ “Distributivity of ∧ over ∃” ⟩
+          e ∈ A ∧ (∃ y • e ⦗ R ⦘ y)
+        =⟨ “Membership in `Dom`” ⟩
+          e ∈ Dom R ∧ e ∈ A
+        =⟨ “Symmetry of ∧” ⟩
+          e ∈ A ∧ e ∈ Dom R
+        =⟨ “Intersection” ⟩
+          e ∈ A ∩ Dom R
+ ---------
 
 Theorem “M2.2”:
       m = m₀ ∧ n = n₀
