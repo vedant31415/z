@@ -4,7 +4,26 @@ Contradiction”: p ∧ ¬ p ≡ false
 “Definition of ⇒”: p ⇒ q ≡ (p ∨ q ≡ q)
 Unary minus”: a + - a = 0
 (3.32): p ∨ q ≡ (p ∨ ¬ q ≡ p)
-
+---
+Theorem “Shifting `suc` over +”: suc m + n = m + suc n
+Proof:
+  By induction on `m : ℕ`:
+    Base case:
+        suc 0 + n
+      =⟨ “Definition of + for `suc`” ⟩
+        suc (0 + n)
+      = ⟨ “Definition of + for 0” ⟩
+        suc n
+      = ⟨ “Left-identity of +” ⟩ 
+        0 + suc n
+    Induction step:
+        suc (suc m) + n
+      =⟨ “Definition of + for `suc`” ⟩
+        suc (suc m + n)
+      =⟨ Induction hypothesis ⟩
+        suc (m + suc n)
+      =⟨ “Definition of + for `suc`” ⟩ 
+        suc m + suc n
 ----------
 Lemma (A1.2b):       (p ∧ q ≡ p₀ ∧ q₀) ∧ (p ∨ q ≡ p₀ ∨ q₀)
                  ⇒⁅  p := p ≡ q
