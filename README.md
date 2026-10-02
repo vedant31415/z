@@ -4,6 +4,9 @@ Contradiction”: p ∧ ¬ p ≡ false
 “Definition of ⇒”: p ⇒ q ≡ (p ∨ q ≡ q)
 Unary minus”: a + - a = 0
 (3.32): p ∨ q ≡ (p ∨ ¬ q ≡ p)
+Definition of `false`”: false ≡ ¬ true
+“Negation of `false`”: ¬ false ≡ true
+
 ---
 Theorem “Shifting `suc` over +”: suc m + n = m + suc n
 Proof:
